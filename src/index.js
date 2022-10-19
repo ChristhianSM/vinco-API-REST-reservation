@@ -1,6 +1,6 @@
-import express from 'express';
-const app = express();
+import Server from "./models/server.js";
+import dotenv from 'dotenv';
+dotenv.config();
 
-app.listen( 8800, ()=> {
-  console.log("Connected to backend");
-})
+const server = new Server();
+server.listen();
