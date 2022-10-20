@@ -1,5 +1,6 @@
 import express from 'express';
 import cors from 'cors';
+import cookieParser from 'cookie-parser'
 import { dbConnection } from '../database/config.js';
 import authRouter from '../routes/auth.routes.js'
 import userRouter from '../routes/user.routes.js'
@@ -45,6 +46,9 @@ class Server {
 
     // Directorio Público
     this.app.use( express.static('public') );
+
+    // Cookie Parser
+    this.app.use( cookieParser() );
 
   }
 

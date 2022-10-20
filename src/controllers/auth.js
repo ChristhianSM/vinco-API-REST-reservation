@@ -1,5 +1,6 @@
 import { request, response } from 'express';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken'
 import User from '../models/User.model.js';
 import { createError } from '../utils/error.js';
 
@@ -30,7 +31,14 @@ export const login = async (req = request, res = response, next) => {
 
     const { password, isAdmin, ...otherDetails } = user._doc;
 
-    res.status(200).json(otherDetails);
+    const token = jwt.sign({id: user._id, isAdmin: user.isAdmin }, process.env.JWT_SECRET);
+
+    res
+      .cookie("access_token", token, {
+        httpOnly: true
+      })
+      .status(200)
+      .json(otherDetails);
   } catch (error) {
     next(error)
   }
