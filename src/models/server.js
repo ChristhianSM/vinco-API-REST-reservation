@@ -5,6 +5,7 @@ import authRouter from '../routes/auth.routes.js'
 import userRouter from '../routes/user.routes.js'
 import roomsRouter from '../routes/rooms.routes.js'
 import hotelsRouter from '../routes/hotels.routes.js'
+import { personalizeError } from '../middlewares/error.js';
 
 class Server {
 
@@ -53,6 +54,8 @@ class Server {
     this.app.use( this.paths.users, userRouter);
     this.app.use( this.paths.rooms, roomsRouter);
     this.app.use( this.paths.hotels, hotelsRouter);
+
+    this.app.use( personalizeError );
   }
 
   listen() {
