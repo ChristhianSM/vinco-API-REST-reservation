@@ -1,6 +1,10 @@
 import express from 'express';
 import cors from 'cors';
 import { dbConnection } from '../database/config.js';
+import authRouter from '../routes/auth.routes.js'
+import userRouter from '../routes/user.routes.js'
+import roomsRouter from '../routes/rooms.routes.js'
+import hotelsRouter from '../routes/hotels.routes.js'
 
 class Server {
 
@@ -10,10 +14,9 @@ class Server {
 
     this.paths = {
       auth:       '/api/auth',
-      buscar:     '/api/buscar',
-      categorias: '/api/categorias',
-      productos:  '/api/productos',
-      usuarios:   '/api/usuarios',
+      users:  '/api/users',
+      rooms:     '/api/rooms',
+      hotels: '/api/hotels'
     }
 
 
@@ -46,11 +49,10 @@ class Server {
 
   routes() {
       
-    // this.app.use( this.paths.auth, require('../routes/auth'));
-    // this.app.use( this.paths.buscar, require('../routes/buscar'));
-    // this.app.use( this.paths.categorias, require('../routes/categorias'));
-    // this.app.use( this.paths.productos, require('../routes/productos'));
-    // this.app.use( this.paths.usuarios, require('../routes/usuarios'));
+    this.app.use( this.paths.auth, authRouter);
+    this.app.use( this.paths.users, userRouter);
+    this.app.use( this.paths.rooms, roomsRouter);
+    this.app.use( this.paths.hotels, hotelsRouter);
   }
 
   listen() {
