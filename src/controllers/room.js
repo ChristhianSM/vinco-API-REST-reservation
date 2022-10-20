@@ -33,7 +33,7 @@ export const createRoom = async (req = request, res = response, next) => {
 
     // Actualizamos el arreglo de rooms del Hotel
     try {
-      await Hotel.findByIdAndUpdate(idHotel, { $push: { rooms: saveRoom._id }})
+      await Hotel.findByIdAndUpdate(idHotel, { $push: { rooms: saveRoom._id }});
     } catch (error) {
       next();
     }
@@ -44,6 +44,7 @@ export const createRoom = async (req = request, res = response, next) => {
 }
 
 export const updateRoom = async (req = request, res = response) => {
+  
   const idRoom = req.params.id;
   try {
     const updatedRoom = await Room.findByIdAndUpdate(
@@ -51,6 +52,7 @@ export const updateRoom = async (req = request, res = response) => {
       { $set: req.body }, 
       { new: true } 
     );
+
     res.status(200).json( updatedRoom );
   } catch (error) {
     console.log(error)
@@ -59,9 +61,18 @@ export const updateRoom = async (req = request, res = response) => {
 }
 
 export const deleteRoom = async (req = request, res = response) => {
+  const idHotel = req.params.idHotel;
   const idRoom = req.params.id;
+
   try {
     await Room.findByIdAndDelete( idRoom );
+
+    try {
+      await Hotel.findByIdAndUpdate(idHotel, { $pull: { rooms: req.params.id }});
+    } catch (error) {
+      next();
+    }
+
     res.status(200).json("Room has been deleted");
   } catch (error) {
     console.log(error)
