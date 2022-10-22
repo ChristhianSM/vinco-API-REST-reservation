@@ -81,7 +81,7 @@ La API expone los siguientes endpoints:
 Los objetivos que se lograron fueron adquirir experiencia con **Node.js**
 como herramienta para desarrollar _aplicaciones de servidor_, junto con una
 serie de herramientas comunes usadas en este tipo de contexto (Express como
-framework, MySQL como base datos, y Knex como ORM).
+framework y MONGODB como base datos.
 
 ### Node
 
