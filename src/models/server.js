@@ -53,7 +53,6 @@ class Server {
   }
 
   routes() {
-      
     this.app.use( this.paths.auth, authRouter);
     this.app.use( this.paths.users, userRouter);
     this.app.use( this.paths.rooms, roomsRouter);
